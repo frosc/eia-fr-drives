@@ -15,7 +15,6 @@ if [[ ! -r ${CREDENTIALS} ]]; then
     exit 1
 fi
 
-
 username=$(grep 'username=' ${CREDENTIALS} | awk -F= '{print $2}')
 
 sudo mount.cifs "//${SERVER}/${username}" ${BASE}/home/ ${OPTIONS}
