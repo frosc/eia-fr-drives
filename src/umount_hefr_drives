@@ -1,0 +1,7 @@
+#!/bin/bash
+
+BASE="${HOME}/mnt/hefr"
+
+sudo umount ${BASE}/home/
+sudo umount ${BASE}/formation/
+sudo umount ${BASE}/transfert/

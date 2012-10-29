@@ -1,0 +1,24 @@
+#!/bin/bash
+
+BASE="${HOME}/mnt/hefr"
+CREDENTIALS="${HOME}/Secret/hefr_credentials"
+SERVER="hefrfas01"
+OPTIONS="-o forceuid,uid=$(id -u),gid=$(id -g),credentials=${CREDENTIALS}"
+
+if [[ ! -d ${BASE} ]]; then
+    echo "Please, create \"${BASE}\" mount point"
+    exit 1
+fi
+
+if [[ ! -r ${CREDENTIALS} ]]; then
+    echo "unable to read credentials: ${CREDENTIALS}."
+    exit 1
+fi
+
+
+username=$(grep 'username=' ${CREDENTIALS} | awk -F= '{print $2}')
+
+sudo mount.cifs "//${SERVER}/${username}" ${BASE}/home/ ${OPTIONS}
+sudo mount.cifs "//${SERVER}/formation_hefr$" ${BASE}/formation/ ${OPTIONS}
+sudo mount.cifs "//${SERVER}/transfert_ata_hefr$" ${BASE}/transfert/ ${OPTIONS}
+
